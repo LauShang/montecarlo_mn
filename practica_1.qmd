@@ -269,7 +269,6 @@ for mu_x in mus:
             "sigma_y":sigma_y, "probabilidad":probabilidad})
 
 probs = pd.DataFrame(frames)
-
 ```
 
 ```{python}
