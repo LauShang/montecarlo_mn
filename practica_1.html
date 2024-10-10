@@ -147,14 +147,14 @@ window.Quarto = {
 <p>Considera la región <span class="math inline">\(\mathcal{G}\)</span> determinada por la función: <span class="math display">\[F(x,y) = (x^2+y−10)^2+(x+y^2−12)^2 −100\]</span></p>
 <section id="calcular-bounding-box" class="level3">
 <h3 class="anchored" data-anchor-id="calcular-bounding-box">Calcular <em>Bounding Box</em></h3>
-<p>Ya que es una función que se puede representar en el plano cartesiano, para calcular el <em>bounding box</em> se hará de forma visual empezando por -10 a 10 ya que AHHHHHH</p>
+<p>Ya que es una función que se puede representar en el plano cartesiano, para calcular el <em>bounding box</em> se hará de forma visual empezando por -10 a 10 ya que igualando a 0 <span class="math inline">\(x\)</span> o <span class="math inline">\(y\)</span> no debe pasar de 10 para que <span class="math inline">\(F(x, y) \leq 0\)</span> gracias a la constante de <span class="math inline">\(−100\)</span></p>
 <p><strong>Definimos la función F(x, y)</strong></p>
-<div id="98f4b0a1" class="cell" data-execution_count="2">
+<div id="60e88178" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> F(x, y):</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> y <span class="op">-</span> <span class="dv">10</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> (x <span class="op">+</span> y<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> <span class="dv">12</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Creamos gráfica para ver límites</strong></p>
-<div id="421d06fc" class="cell" data-execution_count="3">
+<div id="2619541b" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">200</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">200</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>X, Y <span class="op">=</span> np.meshgrid(x, y)</span>
@@ -185,7 +185,7 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="estimación-de-área-por-montecarlo">Estimación de área por Montecarlo</h3>
 <p>La estimación de área por Monte Carlo es un método que usa puntos generados al azar para aproximar el área de una figura. Podemos verlo como lanzar muchos puntos dentro de un rectángulo que rodea la figura. Luego, cuentas cuántos puntos caen dentro de la figura y cuántos fuera. Con esa proporción, multiplicada por el área del rectángulo, puedes calcular el área aproximada de la figura, incluso si su forma es irregular.</p>
 <p>Primero graficamos cómo se vería esta definición con <span class="math inline">\(10^5\)</span> muestras:</p>
-<div id="d1ca6076" class="cell" data-execution_count="4">
+<div id="586127c3" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># definimos el bounding box</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x_min, x_max <span class="op">=</span> <span class="op">-</span><span class="dv">6</span>, <span class="dv">6</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>y_min, y_max <span class="op">=</span> <span class="op">-</span><span class="dv">6</span>, <span class="dv">6</span></span>
@@ -210,13 +210,13 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practica_1_files/figure-html/cell-5-output-1.png" width="662" height="673" class="figure-img"></p>
+<p><img src="practica_1_files/figure-html/cell-5-output-1.png" width="662" height="672" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>después de ver cómo se representa en el plano calculamos el área de <span class="math inline">\(\mathcal{G}\)</span> usando el método de Monte Carlo con <span class="math inline">\(10^2,10^3,...,10^8\)</span> muestras.</p>
-<div id="e0dcac9b" class="cell" data-execution_count="5">
+<div id="6963c4a6" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">44</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>exp <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>,<span class="dv">9</span>)]</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>frames <span class="op">=</span> []</span>
@@ -237,53 +237,53 @@ window.Quarto = {
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">'muestras'</span>: <span class="st">'</span><span class="sc">{:.0e}</span><span class="st">'</span>,</span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">'area_estimada'</span>: <span class="st">'</span><span class="sc">{:.2f}</span><span class="st">'</span></span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <style type="text/css">
 </style>
 
-<table id="T_4581b" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table id="T_18080" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_4581b_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">muestras</th>
-<th id="T_4581b_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">area_estimada</th>
+<th id="T_18080_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">muestras</th>
+<th id="T_18080_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">area_estimada</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_4581b_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
-<td id="T_4581b_row0_col0" class="data row0 col0">1e+02</td>
-<td id="T_4581b_row0_col1" class="data row0 col1">33.12</td>
+<td id="T_18080_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
+<td id="T_18080_row0_col0" class="data row0 col0">1e+02</td>
+<td id="T_18080_row0_col1" class="data row0 col1">33.12</td>
 </tr>
 <tr class="even">
-<td id="T_4581b_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
-<td id="T_4581b_row1_col0" class="data row1 col0">1e+03</td>
-<td id="T_4581b_row1_col1" class="data row1 col1">41.90</td>
+<td id="T_18080_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
+<td id="T_18080_row1_col0" class="data row1 col0">1e+03</td>
+<td id="T_18080_row1_col1" class="data row1 col1">41.90</td>
 </tr>
 <tr class="odd">
-<td id="T_4581b_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
-<td id="T_4581b_row2_col0" class="data row2 col0">1e+04</td>
-<td id="T_4581b_row2_col1" class="data row2 col1">39.08</td>
+<td id="T_18080_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
+<td id="T_18080_row2_col0" class="data row2 col0">1e+04</td>
+<td id="T_18080_row2_col1" class="data row2 col1">39.08</td>
 </tr>
 <tr class="even">
-<td id="T_4581b_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
-<td id="T_4581b_row3_col0" class="data row3 col0">1e+05</td>
-<td id="T_4581b_row3_col1" class="data row3 col1">38.96</td>
+<td id="T_18080_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
+<td id="T_18080_row3_col0" class="data row3 col0">1e+05</td>
+<td id="T_18080_row3_col1" class="data row3 col1">38.96</td>
 </tr>
 <tr class="odd">
-<td id="T_4581b_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
-<td id="T_4581b_row4_col0" class="data row4 col0">1e+06</td>
-<td id="T_4581b_row4_col1" class="data row4 col1">38.81</td>
+<td id="T_18080_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
+<td id="T_18080_row4_col0" class="data row4 col0">1e+06</td>
+<td id="T_18080_row4_col1" class="data row4 col1">38.81</td>
 </tr>
 <tr class="even">
-<td id="T_4581b_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">5</td>
-<td id="T_4581b_row5_col0" class="data row5 col0">1e+07</td>
-<td id="T_4581b_row5_col1" class="data row5 col1">38.76</td>
+<td id="T_18080_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">5</td>
+<td id="T_18080_row5_col0" class="data row5 col0">1e+07</td>
+<td id="T_18080_row5_col1" class="data row5 col1">38.76</td>
 </tr>
 <tr class="odd">
-<td id="T_4581b_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">6</td>
-<td id="T_4581b_row6_col0" class="data row6 col0">1e+08</td>
-<td id="T_4581b_row6_col1" class="data row6 col1">38.77</td>
+<td id="T_18080_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">6</td>
+<td id="T_18080_row6_col0" class="data row6 col0">1e+08</td>
+<td id="T_18080_row6_col1" class="data row6 col1">38.77</td>
 </tr>
 </tbody>
 </table>
@@ -293,8 +293,8 @@ window.Quarto = {
 </section>
 <section id="estimación-de-área-con-método-recursivo" class="level3">
 <h3 class="anchored" data-anchor-id="estimación-de-área-con-método-recursivo">Estimación de área con método recursivo</h3>
-<p>En este caso calculamos el valor de <span class="math inline">\(F(x,y)\)</span> en las esquinas del <em>bounding box</em>, en este caso todo va estar fuera de <span class="math inline">\(\mathcal{G}\)</span> eya que le dimos un margen, y al tener todas las esquinas fuera de <span class="math inline">\(\mathcal{G}\)</span> se volvera a calcular pero dividiendo el cuadrado en cuatro partes y se volverá a calcular las esquinas hasta llegar a la profundid máxima, una vez que se llega a la profundidad máxima se hará un montecarlo para ajustar el área de es subconjunto que no vamos a volver a dividir.</p>
-<div id="bc8b8306" class="cell" data-execution_count="6">
+<p>En este caso calculamos el valor de <span class="math inline">\(F(x,y)\)</span> en las esquinas del <em>bounding box</em>, en este caso todo va estar fuera de <span class="math inline">\(\mathcal{G}\)</span> ya que le dimos un margen, y al tener todas las esquinas fuera de <span class="math inline">\(\mathcal{G}\)</span> se volvera a calcular pero dividiendo el cuadrado en cuatro partes y se volverá a calcular las esquinas hasta llegar a la profundid máxima, una vez que se llega a la profundidad máxima se hará un montecarlo para ajustar el área del subconjunto que no vamos a volver a dividir.</p>
+<div id="ee137a1d" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> polygon_area(xlims, ylims):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""calcula el área de un rectángulo basado en sus coordenadas"""</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> <span class="bu">abs</span>(xlims[<span class="dv">1</span>] <span class="op">-</span> xlims[<span class="dv">0</span>])</span>
@@ -360,7 +360,7 @@ window.Quarto = {
 <span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Graficamos la función donde el morado es los subconjuntos que detecto que pertenecen a <span class="math inline">\(\mathcal{G}\)</span> y los cafes los aproximo por <em>montecarlo</em>.</p>
-<div id="8256c897" class="cell" data-execution_count="7">
+<div id="6b6fa24a" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">44</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure( figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>) )</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> recursive_plot(F,[<span class="op">-</span><span class="dv">6</span>,<span class="dv">6</span>],[<span class="op">-</span><span class="dv">6</span>,<span class="dv">6</span>],<span class="dv">7</span>)</span>
@@ -392,7 +392,7 @@ f(x, y) = \frac{1}{2\pi\sigma_X\sigma_Y\sqrt{1-\rho^2}} \exp \left( -\frac{1}{2(
 \]</span></p>
 <p><strong>Montecarlo</strong>: En este caso por la complejidad de la integral podemos usar Montecarlo para estimar el valor de <span class="math inline">\(\mathcal{G}\)</span>, para esto se generan múltiples muestras <span class="math inline">\((x,y)\)</span> con la distribución normal bivariada especificada (con medias <span class="math inline">\(\mu_x,\mu_y\)</span>, desviaciones estándar <span class="math inline">\(\sigma_x,\sigma_y\)</span>​, y correlación <span class="math inline">\(p_{xy}\)</span>​). Luego, se evalúa la función <span class="math inline">\(F(x,y)\)</span> para determinar si cada muestra cae dentro de la región <span class="math inline">\(\mathcal{G}\)</span>. La probabilidad se estima como la proporción de muestras que cumplen <span class="math inline">\(F(x,y)≤0\)</span> respecto al total de muestras generadas.</p>
 <p>Calculamos montecarlo con muestras <span class="math inline">\(10^2, 10^3, . . . , 10^8\)</span> suponiendo que las componentes de <span class="math inline">\((x, y) \in \mathbb{R}^2\)</span> se distribuyen como normal bivariada con <span class="math inline">\(\mu_x = \mu_y \in \{−6, −5, . . . , 5, 6\}\)</span>, <span class="math inline">\(\sigma_x = \sigma_y \in \{1,2,3,4,5\}\)</span> y <span class="math inline">\(p_{xy} = 0\)</span></p>
-<div id="90c3836c" class="cell" data-execution_count="8">
+<div id="probabilidades" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calcular_probabilidad_region(N, mu_x, mu_y, sigma_x, sigma_y, p_xy, F):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Calcula la probabilidad de que (x, y) esté en la región G utilizando Monte Carlo.</span></span>
@@ -418,30 +418,30 @@ f(x, y) = \frac{1}{2\pi\sigma_X\sigma_Y\sqrt{1-\rho^2}} \exp \left( -\frac{1}{2(
 <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(np.array(F(muestras[:, <span class="dv">0</span>], muestras[:, <span class="dv">1</span>])) <span class="op">&lt;=</span> <span class="dv">0</span>) <span class="op">/</span> <span class="bu">len</span>(muestras)</span>
 <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>mus <span class="op">=</span> np.arange(<span class="op">-</span><span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">1</span>)    <span class="co"># Medias mu_x y mu_y de -6 a 6</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>sigmas <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]     <span class="co"># Desviaciones estándar sigma_x y sigma_y</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>p_xy <span class="op">=</span> <span class="dv">0</span>                     <span class="co"># Correlación entre x e y</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>N_values <span class="op">=</span> [<span class="dv">10</span><span class="op">**</span>i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">9</span>)]  <span class="co"># Valores de N = 10^2, 10^3, ..., 10^8</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co"># DataFrame para guardar los resultados</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>frames <span class="op">=</span> <span class="bu">list</span>()</span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular la probabilidad para cada combinación de parámetros</span></span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> mu_x <span class="kw">in</span> mus:</span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    mu_y <span class="op">=</span> mu_x</span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> sigma_x <span class="kw">in</span> sigmas:</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>        sigma_y <span class="op">=</span> sigma_x  <span class="co"># Igualar sigma_x y sigma_y</span></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> N <span class="kw">in</span> N_values:</span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>            probabilidad <span class="op">=</span> calcular_probabilidad_region(N, mu_x, mu_y, sigma_x, sigma_y, p_xy, F)</span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>            frames.append({<span class="st">"N"</span>:N, <span class="st">"mu_x"</span>:mu_x, <span class="st">"mu_y"</span>:mu_y, <span class="st">"sigma_x"</span>:sigma_x, </span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"sigma_y"</span>:sigma_y, <span class="st">"probabilidad"</span>:probabilidad})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>mus <span class="op">=</span> np.arange(<span class="op">-</span><span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">1</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>sigmas <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>p_xy <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>N_values <span class="op">=</span> [<span class="dv">10</span><span class="op">**</span>i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">9</span>)]</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>frames <span class="op">=</span> <span class="bu">list</span>()</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular la probabilidad para cada combinación de parámetros</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> mu_x <span class="kw">in</span> mus:</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    mu_y <span class="op">=</span> mu_x</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> sigma_x <span class="kw">in</span> sigmas:</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>        sigma_y <span class="op">=</span> sigma_x</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> N <span class="kw">in</span> N_values:</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>            probabilidad <span class="op">=</span> calcular_probabilidad_region(N, mu_x, mu_y, sigma_x, sigma_y, p_xy, F)</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>            frames.append({<span class="st">"N"</span>:N, <span class="st">"mu_x"</span>:mu_x, <span class="st">"mu_y"</span>:mu_y, <span class="st">"sigma_x"</span>:sigma_x, </span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>            <span class="st">"sigma_y"</span>:sigma_y, <span class="st">"probabilidad"</span>:probabilidad})</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>probs <span class="op">=</span> pd.DataFrame(frames)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="distribuciones-con-mayor-probabilidad" class="level5">
 <h5 class="anchored" data-anchor-id="distribuciones-con-mayor-probabilidad">Distribuciones con mayor probabilidad</h5>
 <p>Vemos que las distribuciones con mayor probabilidad son</p>
-<div id="e2a6cc32" class="cell" data-execution_count="9">
+<div id="6970ceb1" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>top_probs <span class="op">=</span> (</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    pd.DataFrame(frames)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    probs</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'probabilidad'</span>,ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    .drop_duplicates(subset<span class="op">=</span>[<span class="st">'mu_x'</span>,<span class="st">'mu_y'</span>,<span class="st">'sigma_x'</span>,<span class="st">'sigma_y'</span>])</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    .head(<span class="dv">4</span>)</span>
@@ -450,67 +450,67 @@ f(x, y) = \frac{1}{2\pi\sigma_X\sigma_Y\sqrt{1-\rho^2}} \exp \left( -\frac{1}{2(
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'probabilidad'</span>: <span class="st">'</span><span class="sc">{:.4f}</span><span class="st">'</span>,</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'N'</span>: <span class="st">'</span><span class="sc">{:.1e}</span><span class="st">'</span></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <style type="text/css">
 </style>
 
-<table id="T_60574" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table id="T_b42ec" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_60574_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">N</th>
-<th id="T_60574_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">mu_x</th>
-<th id="T_60574_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">mu_y</th>
-<th id="T_60574_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">sigma_x</th>
-<th id="T_60574_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">sigma_y</th>
-<th id="T_60574_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">probabilidad</th>
+<th id="T_b42ec_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">N</th>
+<th id="T_b42ec_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">mu_x</th>
+<th id="T_b42ec_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">mu_y</th>
+<th id="T_b42ec_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">sigma_x</th>
+<th id="T_b42ec_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">sigma_y</th>
+<th id="T_b42ec_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">probabilidad</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_60574_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">316</td>
-<td id="T_60574_row0_col0" class="data row0 col0">1.0e+03</td>
-<td id="T_60574_row0_col1" class="data row0 col1">3</td>
-<td id="T_60574_row0_col2" class="data row0 col2">3</td>
-<td id="T_60574_row0_col3" class="data row0 col3">1</td>
-<td id="T_60574_row0_col4" class="data row0 col4">1</td>
-<td id="T_60574_row0_col5" class="data row0 col5">0.7630</td>
+<td id="T_b42ec_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">316</td>
+<td id="T_b42ec_row0_col0" class="data row0 col0">1.0e+03</td>
+<td id="T_b42ec_row0_col1" class="data row0 col1">3</td>
+<td id="T_b42ec_row0_col2" class="data row0 col2">3</td>
+<td id="T_b42ec_row0_col3" class="data row0 col3">1</td>
+<td id="T_b42ec_row0_col4" class="data row0 col4">1</td>
+<td id="T_b42ec_row0_col5" class="data row0 col5">0.7600</td>
 </tr>
 <tr class="even">
-<td id="T_60574_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">285</td>
-<td id="T_60574_row1_col0" class="data row1 col0">1.0e+07</td>
-<td id="T_60574_row1_col1" class="data row1 col1">2</td>
-<td id="T_60574_row1_col2" class="data row1 col2">2</td>
-<td id="T_60574_row1_col3" class="data row1 col3">1</td>
-<td id="T_60574_row1_col4" class="data row1 col4">1</td>
-<td id="T_60574_row1_col5" class="data row1 col5">0.7443</td>
+<td id="T_b42ec_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">283</td>
+<td id="T_b42ec_row1_col0" class="data row1 col0">1.0e+05</td>
+<td id="T_b42ec_row1_col1" class="data row1 col1">2</td>
+<td id="T_b42ec_row1_col2" class="data row1 col2">2</td>
+<td id="T_b42ec_row1_col3" class="data row1 col3">1</td>
+<td id="T_b42ec_row1_col4" class="data row1 col4">1</td>
+<td id="T_b42ec_row1_col5" class="data row1 col5">0.7448</td>
 </tr>
 <tr class="odd">
-<td id="T_60574_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">71</td>
-<td id="T_60574_row2_col0" class="data row2 col0">1.0e+03</td>
-<td id="T_60574_row2_col1" class="data row2 col1">-4</td>
-<td id="T_60574_row2_col2" class="data row2 col2">-4</td>
-<td id="T_60574_row2_col3" class="data row2 col3">1</td>
-<td id="T_60574_row2_col4" class="data row2 col4">1</td>
-<td id="T_60574_row2_col5" class="data row2 col5">0.5910</td>
+<td id="T_b42ec_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">73</td>
+<td id="T_b42ec_row2_col0" class="data row2 col0">1.0e+05</td>
+<td id="T_b42ec_row2_col1" class="data row2 col1">-4</td>
+<td id="T_b42ec_row2_col2" class="data row2 col2">-4</td>
+<td id="T_b42ec_row2_col3" class="data row2 col3">1</td>
+<td id="T_b42ec_row2_col4" class="data row2 col4">1</td>
+<td id="T_b42ec_row2_col5" class="data row2 col5">0.5628</td>
 </tr>
 <tr class="even">
-<td id="T_60574_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">106</td>
-<td id="T_60574_row3_col0" class="data row3 col0">1.0e+03</td>
-<td id="T_60574_row3_col1" class="data row3 col1">-3</td>
-<td id="T_60574_row3_col2" class="data row3 col2">-3</td>
-<td id="T_60574_row3_col3" class="data row3 col3">1</td>
-<td id="T_60574_row3_col4" class="data row3 col4">1</td>
-<td id="T_60574_row3_col5" class="data row3 col5">0.5110</td>
+<td id="T_b42ec_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">107</td>
+<td id="T_b42ec_row3_col0" class="data row3 col0">1.0e+04</td>
+<td id="T_b42ec_row3_col1" class="data row3 col1">-3</td>
+<td id="T_b42ec_row3_col2" class="data row3 col2">-3</td>
+<td id="T_b42ec_row3_col3" class="data row3 col3">1</td>
+<td id="T_b42ec_row3_col4" class="data row3 col4">1</td>
+<td id="T_b42ec_row3_col5" class="data row3 col5">0.5119</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 <p>Y graficamos comparando con la <span class="math inline">\(F(x,y)\)</span></p>
-<div id="6ef80d11" class="cell" data-execution_count="11">
+<div id="93868f75" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> top_probs.drop(columns<span class="op">=</span>[<span class="st">'probabilidad'</span>]).values</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i, ax), param <span class="kw">in</span> <span class="bu">zip</span>(<span class="bu">enumerate</span>(axes.flatten()), params):</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    N, mu_x, mu_y, sigma_x, sigma_y <span class="op">=</span> param</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    plt.sca(ax)</span>
@@ -523,7 +523,7 @@ f(x, y) = \frac{1}{2\pi\sigma_X\sigma_Y\sqrt{1-\rho^2}} \exp \left( -\frac{1}{2(
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practica_1_files/figure-html/cell-12-output-1.png" width="949" height="948" class="figure-img"></p>
+<p><img src="practica_1_files/figure-html/cell-13-output-1.png" width="758" height="758" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -531,77 +531,78 @@ f(x, y) = \frac{1}{2\pi\sigma_X\sigma_Y\sqrt{1-\rho^2}} \exp \left( -\frac{1}{2(
 </section>
 <section id="distribuciones-con-menor-probabilidad" class="level5">
 <h5 class="anchored" data-anchor-id="distribuciones-con-menor-probabilidad">Distribuciones con menor probabilidad</h5>
-<div id="5cf3884a" class="cell" data-execution_count="12">
+<div id="230c1c79" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>low_probs <span class="op">=</span> (</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    pd.DataFrame(frames)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    probs</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">'probabilidad'</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    .drop_duplicates(subset<span class="op">=</span>[<span class="st">'mu_x'</span>,<span class="st">'mu_y'</span>,<span class="st">'sigma_x'</span>,<span class="st">'sigma_y'</span>])</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    .head(<span class="dv">4</span>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>low_probs.style.<span class="bu">format</span>({</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'probabilidad'</span>: <span class="st">'</span><span class="sc">{:.4f}</span><span class="st">'</span>,</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'N'</span>: <span class="st">'</span><span class="sc">{:.1e}</span><span class="st">'</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="25">
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    .query(<span class="st">"N &lt; 10**7"</span>) <span class="co"># quitar muestras altas por memoria en gráficas</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    .drop_duplicates(subset<span class="op">=</span>[<span class="st">'mu_x'</span>,<span class="st">'mu_y'</span>,<span class="st">'sigma_x'</span>,<span class="st">'sigma_y'</span>])</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    .head(<span class="dv">4</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>low_probs.style.<span class="bu">format</span>({</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'probabilidad'</span>: <span class="st">'</span><span class="sc">{:.4f}</span><span class="st">'</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'N'</span>: <span class="st">'</span><span class="sc">{:.1e}</span><span class="st">'</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
 <style type="text/css">
 </style>
 
-<table id="T_9f079" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table id="T_4e3af" class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_9f079_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">N</th>
-<th id="T_9f079_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">mu_x</th>
-<th id="T_9f079_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">mu_y</th>
-<th id="T_9f079_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">sigma_x</th>
-<th id="T_9f079_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">sigma_y</th>
-<th id="T_9f079_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">probabilidad</th>
+<th id="T_4e3af_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">N</th>
+<th id="T_4e3af_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">mu_x</th>
+<th id="T_4e3af_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">mu_y</th>
+<th id="T_4e3af_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">sigma_x</th>
+<th id="T_4e3af_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">sigma_y</th>
+<th id="T_4e3af_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">probabilidad</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_9f079_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">420</td>
-<td id="T_9f079_row0_col0" class="data row0 col0">1.0e+02</td>
-<td id="T_9f079_row0_col1" class="data row0 col1">6</td>
-<td id="T_9f079_row0_col2" class="data row0 col2">6</td>
-<td id="T_9f079_row0_col3" class="data row0 col3">1</td>
-<td id="T_9f079_row0_col4" class="data row0 col4">1</td>
-<td id="T_9f079_row0_col5" class="data row0 col5">0.0000</td>
+<td id="T_4e3af_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">420</td>
+<td id="T_4e3af_row0_col0" class="data row0 col0">1.0e+02</td>
+<td id="T_4e3af_row0_col1" class="data row0 col1">6</td>
+<td id="T_4e3af_row0_col2" class="data row0 col2">6</td>
+<td id="T_4e3af_row0_col3" class="data row0 col3">1</td>
+<td id="T_4e3af_row0_col4" class="data row0 col4">1</td>
+<td id="T_4e3af_row0_col5" class="data row0 col5">0.0000</td>
 </tr>
 <tr class="even">
-<td id="T_9f079_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">178</td>
-<td id="T_9f079_row1_col0" class="data row1 col0">1.0e+05</td>
-<td id="T_9f079_row1_col1" class="data row1 col1">-1</td>
-<td id="T_9f079_row1_col2" class="data row1 col2">-1</td>
-<td id="T_9f079_row1_col3" class="data row1 col3">1</td>
-<td id="T_9f079_row1_col4" class="data row1 col4">1</td>
-<td id="T_9f079_row1_col5" class="data row1 col5">0.0089</td>
+<td id="T_4e3af_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">179</td>
+<td id="T_4e3af_row1_col0" class="data row1 col0">1.0e+06</td>
+<td id="T_4e3af_row1_col1" class="data row1 col1">-1</td>
+<td id="T_4e3af_row1_col2" class="data row1 col2">-1</td>
+<td id="T_4e3af_row1_col3" class="data row1 col3">1</td>
+<td id="T_4e3af_row1_col4" class="data row1 col4">1</td>
+<td id="T_4e3af_row1_col5" class="data row1 col5">0.0097</td>
 </tr>
 <tr class="odd">
-<td id="T_9f079_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">427</td>
-<td id="T_9f079_row2_col0" class="data row2 col0">1.0e+02</td>
-<td id="T_9f079_row2_col1" class="data row2 col1">6</td>
-<td id="T_9f079_row2_col2" class="data row2 col2">6</td>
-<td id="T_9f079_row2_col3" class="data row2 col3">2</td>
-<td id="T_9f079_row2_col4" class="data row2 col4">2</td>
-<td id="T_9f079_row2_col5" class="data row2 col5">0.0100</td>
+<td id="T_4e3af_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">1</td>
+<td id="T_4e3af_row2_col0" class="data row2 col0">1.0e+03</td>
+<td id="T_4e3af_row2_col1" class="data row2 col1">-6</td>
+<td id="T_4e3af_row2_col2" class="data row2 col2">-6</td>
+<td id="T_4e3af_row2_col3" class="data row2 col3">1</td>
+<td id="T_4e3af_row2_col4" class="data row2 col4">1</td>
+<td id="T_4e3af_row2_col5" class="data row2 col5">0.0140</td>
 </tr>
 <tr class="even">
-<td id="T_9f079_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">1</td>
-<td id="T_9f079_row3_col0" class="data row3 col0">1.0e+03</td>
-<td id="T_9f079_row3_col1" class="data row3 col1">-6</td>
-<td id="T_9f079_row3_col2" class="data row3 col2">-6</td>
-<td id="T_9f079_row3_col3" class="data row3 col3">1</td>
-<td id="T_9f079_row3_col4" class="data row3 col4">1</td>
-<td id="T_9f079_row3_col5" class="data row3 col5">0.0140</td>
+<td id="T_4e3af_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">386</td>
+<td id="T_4e3af_row3_col0" class="data row3 col0">1.0e+03</td>
+<td id="T_4e3af_row3_col1" class="data row3 col1">5</td>
+<td id="T_4e3af_row3_col2" class="data row3 col2">5</td>
+<td id="T_4e3af_row3_col3" class="data row3 col3">1</td>
+<td id="T_4e3af_row3_col4" class="data row3 col4">1</td>
+<td id="T_4e3af_row3_col5" class="data row3 col5">0.0230</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div id="e50d0002" class="cell" data-execution_count="13">
+<div id="3798c7de" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> low_probs.drop(columns<span class="op">=</span>[<span class="st">'probabilidad'</span>]).values</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i, ax), param <span class="kw">in</span> <span class="bu">zip</span>(<span class="bu">enumerate</span>(axes.flatten()), params):</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    N, mu_x, mu_y, sigma_x, sigma_y <span class="op">=</span> param</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    plt.sca(ax)</span>
@@ -614,7 +615,7 @@ f(x, y) = \frac{1}{2\pi\sigma_X\sigma_Y\sqrt{1-\rho^2}} \exp \left( -\frac{1}{2(
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="practica_1_files/figure-html/cell-14-output-1.png" width="949" height="948" class="figure-img"></p>
+<p><img src="practica_1_files/figure-html/cell-15-output-1.png" width="760" height="758" class="figure-img"></p>
 </figure>
 </div>
 </div>

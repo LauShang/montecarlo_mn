@@ -21,7 +21,7 @@ $$F(x,y) = (x^2+y−10)^2+(x+y^2−12)^2 −100$$
 
 ### Calcular _Bounding Box_
 
-Ya que es una función que se puede representar en el plano cartesiano, para calcular el _bounding box_ se hará de forma visual empezando por -10 a 10 ya que AHHHHHH
+Ya que es una función que se puede representar en el plano cartesiano, para calcular el _bounding box_ se hará de forma visual empezando por -10 a 10 ya que igualando a 0 $x$ o $y$ no debe pasar de 10 para que $F(x, y) \leq 0$ gracias a la constante de $−100$
 
 ```{python}
 #| echo: false
@@ -117,7 +117,7 @@ estimated_area_df.style.format({
 Vemos que mientras más puntos mejor es nuestra aproximación del área dando un área de **38.77** unidades cuadradas con $10^8$ muestras.
 
 ### Estimación de área con método recursivo
-En este caso calculamos el valor de $F(x,y)$ en las esquinas del _bounding box_, en este caso todo va estar fuera de $\mathcal{G}$ eya que le dimos un margen, y al tener todas las esquinas fuera de $\mathcal{G}$ se volvera a calcular pero dividiendo el cuadrado en cuatro partes y se volverá a calcular las esquinas hasta llegar a la profundid máxima, una vez que se llega a la profundidad máxima se hará un montecarlo para ajustar el área de es subconjunto que no vamos a volver a dividir.
+En este caso calculamos el valor de $F(x,y)$ en las esquinas del _bounding box_, en este caso todo va estar fuera de $\mathcal{G}$ ya que le dimos un margen, y al tener todas las esquinas fuera de $\mathcal{G}$ se volvera a calcular pero dividiendo el cuadrado en cuatro partes y se volverá a calcular las esquinas hasta llegar a la profundid máxima, una vez que se llega a la profundidad máxima se hará un montecarlo para ajustar el área del subconjunto que no vamos a volver a dividir.
 
 ```{python}
 def polygon_area(xlims, ylims):
@@ -222,8 +222,11 @@ $$
 
 Calculamos montecarlo con muestras $10^2, 10^3, . . . , 10^8$ suponiendo que las componentes de $(x, y) \in \mathbb{R}^2$ se distribuyen como normal bivariada con $\mu_x = \mu_y \in \{−6, −5, . . . , 5, 6\}$, $\sigma_x = \sigma_y \in \{1,2,3,4,5\}$ y $p_{xy} = 0$
 
+
+
 ```{python}
-#| cache: true
+#| eval: false
+#| label: probabilidades
 def calcular_probabilidad_region(N, mu_x, mu_y, sigma_x, sigma_y, p_xy, F):
     """
     Calcula la probabilidad de que (x, y) esté en la región G utilizando Monte Carlo.
@@ -249,31 +252,36 @@ def calcular_probabilidad_region(N, mu_x, mu_y, sigma_x, sigma_y, p_xy, F):
     
     return np.sum(np.array(F(muestras[:, 0], muestras[:, 1])) <= 0) / len(muestras)
 
-mus = np.arange(-6, 7, 1)    # Medias mu_x y mu_y de -6 a 6
-sigmas = [1, 2, 3, 4, 5]     # Desviaciones estándar sigma_x y sigma_y
-p_xy = 0                     # Correlación entre x e y
-N_values = [10**i for i in range(2, 9)]  # Valores de N = 10^2, 10^3, ..., 10^8
-
-# DataFrame para guardar los resultados
+mus = np.arange(-6, 7, 1)
+sigmas = [1, 2, 3, 4, 5]
+p_xy = 0
+N_values = [10**i for i in range(2, 9)]
 frames = list()
 
 # Calcular la probabilidad para cada combinación de parámetros
 for mu_x in mus:
     mu_y = mu_x
     for sigma_x in sigmas:
-        sigma_y = sigma_x  # Igualar sigma_x y sigma_y
+        sigma_y = sigma_x
         for N in N_values:
             probabilidad = calcular_probabilidad_region(N, mu_x, mu_y, sigma_x, sigma_y, p_xy, F)
             frames.append({"N":N, "mu_x":mu_x, "mu_y":mu_y, "sigma_x":sigma_x, 
-                           "sigma_y":sigma_y, "probabilidad":probabilidad})
+            "sigma_y":sigma_y, "probabilidad":probabilidad})
 
+probs = pd.DataFrame(frames)
+
+```
+
+```{python}
+#| echo: false
+probs = pd.read_parquet('support_files.parquet')
 ```
 
 ##### Distribuciones con mayor probabilidad
 Vemos que las distribuciones con mayor probabilidad son 
 ```{python}
 top_probs = (
-    pd.DataFrame(frames)
+    probs
     .sort_values('probabilidad',ascending=False)
     .drop_duplicates(subset=['mu_x','mu_y','sigma_x','sigma_y'])
     .head(4)
@@ -325,7 +333,7 @@ def plot_bivariate_gaussian(mu_x, mu_y, sigma_x, sigma_y, N, p_xy=0):
 
 ```{python}
 params = top_probs.drop(columns=['probabilidad']).values
-fig, axes = plt.subplots(2, 2, figsize=(10, 10))
+fig, axes = plt.subplots(2, 2, figsize=(8, 8))
 for (i, ax), param in zip(enumerate(axes.flatten()), params):
     N, mu_x, mu_y, sigma_x, sigma_y = param
     plt.sca(ax)
@@ -341,8 +349,9 @@ plt.show()
 
 ```{python}
 low_probs = (
-    pd.DataFrame(frames)
+    probs
     .sort_values('probabilidad')
+    .query("N < 10**7") # quitar muestras altas por memoria en gráficas
     .drop_duplicates(subset=['mu_x','mu_y','sigma_x','sigma_y'])
     .head(4)
 )
@@ -354,7 +363,7 @@ low_probs.style.format({
 
 ```{python}
 params = low_probs.drop(columns=['probabilidad']).values
-fig, axes = plt.subplots(2, 2, figsize=(10, 10))
+fig, axes = plt.subplots(2, 2, figsize=(8, 8))
 for (i, ax), param in zip(enumerate(axes.flatten()), params):
     N, mu_x, mu_y, sigma_x, sigma_y = param
     plt.sca(ax)
