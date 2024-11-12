@@ -1,2 +1,3 @@
 support_files.parquet
 .jupyter_cache
+.DS_Store
